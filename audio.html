@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audio</title>
+    <script>
+        var player;
+        
+        window.onload= function()
+        {
+           
+        player = document.getElementById('song');
+            document.getElementById('btnPlay').addEventListener('click', playSong, false);
+            document.getElementById('btnPause').addEventListener('click', pauseSong, false);
+        
+document.getElementById('btnStop').addEventListener('click', stopSong, false);
+            
+document.getElementById('sldVolume').addEventListener('mousemove', changeVolume, false);
+            
+player.addEventListener('timeupdate', update, false);
+            
+document.getElementById('seeker').addEventListener('mousemove', songPos, false);
+        }
+        
+        function songPos()
+        {
+        player.currentTime = document.getElementById('seeker').value;   
+        }
+        
+        function update()
+        {
+           // console.log("Hi");  
+            document.getElementById('seeker').value = player.currentTime;
+            
+        }
+        
+        function changeVolume()
+        {
+            player.volume = document.getElementById('sldVolume').value;   
+        }
+        
+        function stopSong()
+        {
+            player.pause();  
+            player.currentTime = 0;
+        }
+        
+        function pauseSong()
+        {
+            player.pause();   
+        }
+        
+        function playSong()
+        {
+            player.play();   
+            document.getElementById('seeker').max = document.getElementById('song').duration;
+        }
+    </script>
+</head>
+<body>
+    <audio id="song">
+        <source src="love.mp3" />
+        <source src="love.ogg" />
+    </audio>
+    <button id="btnPlay">Play</button>
+    <button id="btnStop">Stop</button>
+    <button id="btnPause">Pause</button>
+    <br/>
+    Volume <input type="range" min="0" max = "1" step=".01" id="sldVolume" /><br/>
+    Seek <input type="range" min="0" value="0" id="seeker"/>
+ <!--
+    <video controls="controls" width="100%">
+        <source src="commercial.mp4" />
+        <source src="commercial.ogv" />
+    </video>
+  -->
+</body>    
+</html>
